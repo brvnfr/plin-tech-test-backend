@@ -230,10 +230,3 @@ Bearer SEU_TOKEN_AQUI
 4. Agora você pode testar as rotas protegidas!
 
 ---
-
-## ✅ **Diferenciais (Pontos Extras)**
-- ✅ Adicionar testes unitários com Jest.
-- ✅ Implementar cache para os endpoints de leitura.
-- ✅ Criar um sistema de autenticação simples com JWT.
-
----
