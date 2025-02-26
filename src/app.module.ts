@@ -40,7 +40,7 @@ import { MenuRepository } from '@/infrastructure/database/repositories/menu.repo
 import { IMenuRepositoryToken } from '@/core/domain/repositories/menu.repository';
 import { CreateMenuUseCase } from '@/core/use-cases/menu/create-menu.usecase';
 import { GetMenuByIdUseCase } from '@/core/use-cases/menu/get-menu.usecase';
-import { GetDailyMenuUseCase } from '@/core/use-cases/menu/get-daily-menu.usecase';
+import { GetDailyMenusUseCase } from '@/core/use-cases/menu/get-daily-menu.usecase';
 import { UpdateMenuUseCase } from '@/core/use-cases/menu/update-menu.usecase';
 import { DeleteMenuUseCase } from '@/core/use-cases/menu/delete-menu.usecase';
 
@@ -82,6 +82,17 @@ import { DeleteUserUseCase } from '@/core/use-cases/user/delete-user.usecase';
     UserController,
   ],
   providers: [
+    // User
+    UserService,
+    CreateUserUseCase,
+    GetUserByIdUseCase,
+    UpdateUserUseCase,
+    DeleteUserUseCase,
+    {
+      provide: IUserRepositoryToken,
+      useClass: UserRepository,
+    },
+
     // Product
     ProductService,
     CreateProductUseCase,
@@ -109,23 +120,12 @@ import { DeleteUserUseCase } from '@/core/use-cases/user/delete-user.usecase';
     MenuService,
     CreateMenuUseCase,
     GetMenuByIdUseCase,
-    GetDailyMenuUseCase,
+    GetDailyMenusUseCase,
     UpdateMenuUseCase,
     DeleteMenuUseCase,
     {
       provide: IMenuRepositoryToken,
       useClass: MenuRepository,
-    },
-
-    // User
-    UserService,
-    CreateUserUseCase,
-    GetUserByIdUseCase,
-    UpdateUserUseCase,
-    DeleteUserUseCase,
-    {
-      provide: IUserRepositoryToken,
-      useClass: UserRepository,
     },
 
     // Auth

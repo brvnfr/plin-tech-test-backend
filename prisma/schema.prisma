@@ -33,12 +33,11 @@ model Category {
 }
 
 model Menu {
-  id           String     @id @default(auto()) @map("_id") @db.ObjectId
-  shift        String     @default("day")
-  categoryIds  String[]   @db.ObjectId
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  shift        String
+  categoryIds  String[] @db.ObjectId
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
-
   categories   Category[]
 }
 

@@ -7,35 +7,42 @@ import { IMenuRepository } from '@/core/domain/repositories/menu.repository';
 export class MenuRepository implements IMenuRepository {
   private prisma = new PrismaClient();
 
-  async findDailyMenu(): Promise<Menu | null> {
+  async findDailyMenus(): Promise<Menu[]> {
     const currentHour = new Date().getHours();
     const shift = currentHour >= 6 && currentHour < 18 ? 'day' : 'night';
 
-    const menu = await this.prisma.menu.findFirst({
-      where: { shift },
-      include: { categories: true },
+    const menus = await this.prisma.menu.findMany({
+      where: {
+        shift: shift,
+      },
+      include: {
+        categories: true,
+      },
     });
 
-    if (!menu) return null;
-
-    return new Menu(
-      menu.id,
-      menu.shift as 'day' | 'night',
-      menu.createdAt,
-      menu.updatedAt,
-      menu.categoryIds,
-      menu.categories,
+    return menus.map(
+      (menu) =>
+        new Menu(
+          menu.id,
+          menu.shift as 'day' | 'night',
+          menu.createdAt,
+          menu.updatedAt,
+          menu.categoryIds,
+          menu.categories,
+        ),
     );
   }
 
   async create(menu: Menu): Promise<Menu> {
     const createdMenu = await this.prisma.menu.create({
       data: {
-        id: menu.id,
         shift: menu.shift,
-        categoryIds: menu.categoryIds ?? [],
+        categoryIds: menu.categoryIds?.map((id) => id.toString()) ?? [],
         createdAt: menu.createdAt,
         updatedAt: menu.updatedAt,
+      },
+      include: {
+        categories: true,
       },
     });
 
@@ -45,7 +52,7 @@ export class MenuRepository implements IMenuRepository {
       createdMenu.createdAt,
       createdMenu.updatedAt,
       createdMenu.categoryIds,
-      [],
+      createdMenu.categories,
     );
   }
 

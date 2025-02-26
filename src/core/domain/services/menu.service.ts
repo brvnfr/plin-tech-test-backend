@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Menu } from '@/core/domain/entities/menu.entity';
 import { CreateMenuUseCase } from '@/core/use-cases/menu/create-menu.usecase';
 import { GetMenuByIdUseCase } from '@/core/use-cases/menu/get-menu.usecase';
-import { GetDailyMenuUseCase } from '@/core/use-cases/menu/get-daily-menu.usecase';
+import { GetDailyMenusUseCase } from '@/core/use-cases/menu/get-daily-menu.usecase';
 import { UpdateMenuUseCase } from '@/core/use-cases/menu/update-menu.usecase';
 import { DeleteMenuUseCase } from '@/core/use-cases/menu/delete-menu.usecase';
 
@@ -11,7 +11,7 @@ export class MenuService {
   constructor(
     private readonly createMenuUseCase: CreateMenuUseCase,
     private readonly getMenuByIdUseCase: GetMenuByIdUseCase,
-    private readonly getDailyMenuUseCase: GetDailyMenuUseCase,
+    private readonly getDailyMenusUseCase: GetDailyMenusUseCase,
     private readonly updateMenuUseCase: UpdateMenuUseCase,
     private readonly deleteMenuUseCase: DeleteMenuUseCase,
   ) {}
@@ -24,8 +24,8 @@ export class MenuService {
     return this.getMenuByIdUseCase.execute(id);
   }
 
-  async getDailyMenu(): Promise<Menu | null> {
-    return this.getDailyMenuUseCase.execute();
+  async getDailyMenus(): Promise<Menu[]> {
+    return this.getDailyMenusUseCase.execute();
   }
 
   async updateMenu(id: string, menu: Partial<Menu>): Promise<Menu> {

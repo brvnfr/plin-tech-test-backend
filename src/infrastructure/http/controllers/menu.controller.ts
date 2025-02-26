@@ -53,13 +53,8 @@ export class MenuController {
 
   @Get('daily')
   @UseInterceptors(CacheInterceptor)
-  async getDailyMenu(): Promise<Menu | null> {
-    try {
-      return await this.menuService.getDailyMenu();
-    } catch (error: unknown) {
-      const message = error instanceof Error ? error.message : 'Unknown error';
-      throw new NotFoundException(`Daily menu not found: ${message}`);
-    }
+  async getDailyMenus(): Promise<Menu[]> {
+    return this.menuService.getDailyMenus();
   }
 
   @Put(':id')
