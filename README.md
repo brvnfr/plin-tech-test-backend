@@ -103,42 +103,62 @@ src
 ├── app.module.ts
 ├── main.ts
 ├── config
-│   └── prisma.config.ts
+│   └── swagger.config.ts
 ├── core
 │   ├── domain
 │   │   ├── entities
 │   │   │   ├── category.entity.ts
 │   │   │   ├── menu.entity.ts
-│   │   │   └── product.entity.ts
+│   │   │   ├── product.entity.ts
+│   │   │   └── user.entity.ts
 │   │   ├── repositories
 │   │   │   ├── category.repository.ts
 │   │   │   ├── menu.repository.ts
-│   │   │   └── product.repository.ts
-│   │   └── services
-│   │       ├── category.service.ts
-│   │       ├── menu.service.ts
-│   │       └── product.service.ts
+│   │   │   ├── product.repository.ts
+│   │   │   └── user.repository.ts
+│   │   ├── services
+│   │   │   ├── category.service.ts
+│   │   │   ├── menu.service.ts
+│   │   │   ├── product.service.ts
+│   │   │   └── user.service.ts
 │   └── use-cases
 │       ├── category
 │       ├── menu
-│       └── product
+│       ├── product
+│       └── user
 ├── infrastructure
+│   ├── auth
+│   │   ├── dtos
+│   │   │   ├── auth.dto.ts
+│   │   ├── auth.controller.ts
+│   │   ├── auth.module.ts
+│   │   ├── auth.service.ts
+│   │   ├── jwt-auth.guard.ts
+│   │   ├── jwt-payload.interface.ts
+│   │   ├── jwt.strategy.ts
 │   ├── database
+│   │   ├── repositories
+│   │   │   ├── category.repository.ts
+│   │   │   ├── menu.repository.ts
+│   │   │   ├── product.repository.ts
+│   │   │   └── user.repository.ts
 │   │   ├── prisma.module.ts
-│   │   └── repositories
-│   │       ├── category.repository.ts
-│   │       ├── menu.repository.ts
-│   │       └── product.repository.ts
+│   │   └── prisma.service.ts
 │   ├── http
 │   │   ├── controllers
 │   │   │   ├── category.controller.ts
 │   │   │   ├── menu.controller.ts
-│   │   │   └── product.controller.ts
-│   │   └── dtos
-│   │       ├── category.dto.ts
-│   │       ├── menu.dto.ts
-│   │       └── product.dto.ts
-└── schemas
+│   │   │   ├── product.controller.ts
+│   │   │   └── user.controller.ts
+│   │   ├── dtos
+│   │   │   ├── category.dto.ts
+│   │   │   ├── menu.dto.ts
+│   │   │   ├── product.dto.ts
+│   │   │   └── user.dto.ts
+│   ├── user.module.ts
+├── app.module.ts
+└── main.ts
+
 ```
 
 ---
@@ -223,9 +243,9 @@ Após iniciar o servidor, acesse a documentação Swagger em:
 ### 🔑 **Testando a Autenticação no Swagger**
 1. Crie um usuário em **POST /users**.
 2. Faça login em **POST /auth/login** para obter o token JWT.
-3. Clique em **Authorize** no Swagger (canto superior direito) e insira o token no formato:
+3. Clique em **Authorize** no Swagger (canto superior direito) e insira o token, sem o prefixo Bearer:
 ```plaintext
-Bearer SEU_TOKEN_AQUI
+SEU_TOKEN_AQUI
 ```
 4. Agora você pode testar as rotas protegidas!
 
