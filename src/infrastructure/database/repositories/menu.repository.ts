@@ -10,7 +10,6 @@ export class MenuRepository implements IMenuRepository {
   async findDailyMenus(): Promise<Menu[]> {
     const currentHour = new Date().getHours();
     const shift = currentHour >= 6 && currentHour < 18 ? 'day' : 'night';
-
     const menus = await this.prisma.menu.findMany({
       where: {
         shift: shift,

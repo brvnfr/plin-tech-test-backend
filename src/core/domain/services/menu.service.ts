@@ -25,7 +25,8 @@ export class MenuService {
   }
 
   async getDailyMenus(): Promise<Menu[]> {
-    return this.getDailyMenusUseCase.execute();
+    const menus = await this.getDailyMenusUseCase.execute();
+    return menus;
   }
 
   async updateMenu(id: string, menu: Partial<Menu>): Promise<Menu> {

@@ -1,5 +1,3 @@
-// src/config/swagger.config.ts
-
 import { DocumentBuilder, OpenAPIObject } from '@nestjs/swagger';
 
 export const swaggerConfig: OpenAPIObject = new DocumentBuilder()
